@@ -1,7 +1,12 @@
 ﻿using System;
 using HomeWork.Data;
+using HomeWork.DI;
+using HomeWork.Infrastructure;
+using HomeWork.Infrastructure.Handler;
 using HomeWork.Model;
 using HomeWork.Validation;
+
+using Unity;
 
 namespace HomeWork
 {
@@ -9,6 +14,10 @@ namespace HomeWork
     {
         static void Main(string[] args)
         {
+            var container = Bootstrapper.ConfigureLogging();
+
+            var handler = container.Resolve<IHandler>();
+
             var user = new User { Id = 1, Name = "Name" };
 
             var phone = new Contact { Type = ContactType.Phone, Id = 1, PhoneCode = "123", Value = "123124" };
@@ -16,10 +25,10 @@ namespace HomeWork
 
             var validator = new ContactValidator();
 
-            var userRepository = GetRepository<User>();
+            var userRepository = GetRepository<User>(handler);
             userRepository.Add(user);
 
-            var contactRepository = GetRepository<Contact>();
+            var contactRepository = GetRepository<Contact>(handler);
 
             if (validator.IsValid(email))
                 contactRepository.Add(phone);
@@ -32,9 +41,9 @@ namespace HomeWork
             Console.WriteLine(contactRepository.GetById(2));
         }
 
-        private static IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
+        private static IRepository<TEntity> GetRepository<TEntity>(IHandler handler) where TEntity : class, IEntity
         {
-            return new EntityRepository<TEntity>();
+            return new EntityRepository<TEntity>(handler);
         }
     }
 }
