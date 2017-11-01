@@ -1,21 +1,19 @@
 ﻿using System;
 
-using HomeWork.Infrastructure;
 using HomeWork.Infrastructure.Logger;
-
-using Unity.Attributes;
 
 namespace HomeWork.Infrastructure.Handler
 {
     public class ExceptionHandler : IHandler
     {
-        private readonly ILogger logger;
+        private readonly ILogger _logger;
 
         public ExceptionHandler(ILogger logger)
         {
-            this.logger = logger;
+            _logger = logger;
         }
 
+        // Не понимаю как можно разбить Handle, чтобы оставить текущее поведение
         public void Handle(Exception e)
         {
             if (e is ArgumentNullException)
@@ -28,7 +26,7 @@ namespace HomeWork.Infrastructure.Handler
             }
             else
             {
-                logger.Log(e);
+                _logger.Log(e);
             }
         }
     }

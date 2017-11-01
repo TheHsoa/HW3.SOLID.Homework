@@ -3,7 +3,9 @@ using HomeWork.Data;
 using HomeWork.DI;
 using HomeWork.Infrastructure;
 using HomeWork.Infrastructure.Handler;
+using HomeWork.Infrastructure.Logger;
 using HomeWork.Model;
+using HomeWork.Model.Contact;
 using HomeWork.Validation;
 
 using Unity;
@@ -14,21 +16,21 @@ namespace HomeWork
     {
         static void Main(string[] args)
         {
-            var container = Bootstrapper.ConfigureLogging();
+            var container = Bootstrapper.Configure();
 
             var handler = container.Resolve<IHandler>();
 
             var user = new User { Id = 1, Name = "Name" };
 
-            var phone = new Contact { Type = ContactType.Phone, Id = 1, PhoneCode = "123", Value = "123124" };
-            var email = new Contact { Type = ContactType.Email, Id = 2, Value = "mail@2gis.ru" };
+            var phone = new Phone { Id = 1, PhoneCode = "123", Value = "123124" };
+            var email = new Email { Id = 2, Value = "mail@2gis.ru" };
 
-            var validator = new ContactValidator();
+            var validator = new ContactValidator(new FileLogger());
 
             var userRepository = GetRepository<User>(handler);
             userRepository.Add(user);
 
-            var contactRepository = GetRepository<Contact>(handler);
+            var contactRepository = GetRepository<IContactEntity>(handler);
 
             if (validator.IsValid(email))
                 contactRepository.Add(phone);

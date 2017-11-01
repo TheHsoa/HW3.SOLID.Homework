@@ -1,32 +1,42 @@
 ﻿using System;
-using System.IO;
-using HomeWork.Model;
+using HomeWork.Infrastructure.Logger;
+using HomeWork.Model.Contact;
 
 namespace HomeWork.Validation
 {
-    internal class ContactValidator : IValidator<Contact>
+    // разбить на 2 разных валидатора
+    internal class ContactValidator : IValidator<Phone>
     {
-        public bool IsValid(Contact entity)
+        private readonly ILogger _logger;
+        public ContactValidator(ILogger logger)
+        {
+            _logger = logger;
+        }
+
+        public bool IsValid(Phone entity)
         {
             try
             {
-                switch (entity.Type)
-                {
-                    case ContactType.Phone:
-                        return entity.PhoneCode != null && entity.Value != null;
-                    case ContactType.Email:
-                        return !string.IsNullOrWhiteSpace(entity.Value);
-                }
+                return entity.PhoneCode != null && entity.Value != null;
             }
             catch (Exception e)
             {
-                Log(e);
+                _logger.Log(e);
             }
             return true;
         }
-        private void Log(Exception e)
+
+        public bool IsValid(Email entity)
         {
-            File.AppendAllText("log.txt", e.Message);
+            try
+            {
+                return !string.IsNullOrWhiteSpace(entity.Value);
+            }
+            catch (Exception e)
+            {
+                _logger.Log(e);
+            }
+            return true;
         }
     }
 }

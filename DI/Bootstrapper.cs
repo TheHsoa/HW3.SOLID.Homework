@@ -1,16 +1,14 @@
-﻿using HomeWork.Infrastructure;
-using HomeWork.Infrastructure.Handler;
+﻿using HomeWork.Infrastructure.Handler;
 using HomeWork.Infrastructure.Logger;
 
 using Unity;
 using Unity.Injection;
-using Unity.Lifetime;
 
 namespace HomeWork.DI
 {
     public static class Bootstrapper
     {
-        public static IUnityContainer ConfigureLogging()
+        public static IUnityContainer Configure()
         {
             var container = new UnityContainer();
             container.RegisterType<ILogger, FileLogger>();

@@ -8,47 +8,47 @@ namespace HomeWork.Data
 {
     internal class EntityRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        private readonly List<TEntity> storage = new List<TEntity>();
-        private readonly IHandler exceptionHandler;
+        private readonly List<TEntity> _storage = new List<TEntity>();
+        private readonly IHandler _exceptionHandler;
 
         public EntityRepository(IHandler exceptionHandler)
         {
-            this.exceptionHandler = exceptionHandler;
+            _exceptionHandler = exceptionHandler;
         }
 
         public void Add(TEntity contact)
         {
             try
             {
-                storage.Add(contact);
+                _storage.Add(contact);
             }
             catch (Exception e)
             {
-                exceptionHandler.Handle(e);
+                _exceptionHandler.Handle(e);
             }
         }
 
         public void Remove(TEntity contact)
         {
-            storage.Remove(contact);
+            _storage.Remove(contact);
         }
 
         public TEntity GetById(long id)
         {
             try
             {
-                return storage.First(o => o.Id == id);
+                return _storage.First(o => o.Id == id);
             }
             catch (Exception e)
             {
-                exceptionHandler.Handle(e);
+                _exceptionHandler.Handle(e);
             }
             return null;
         }
 
         public TEntity[] GetAll()
         {
-            return storage.ToArray();
+            return _storage.ToArray();
         }
     }
 }
