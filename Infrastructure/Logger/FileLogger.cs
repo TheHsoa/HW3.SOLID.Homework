@@ -7,7 +7,7 @@ namespace HomeWork.Infrastructure.Logger
     {
         public void Log(Exception e)
         {
-            File.AppendAllText("log.txt", e.Message);
+            File.AppendAllText("log.txt", $@"{e.Message}{Environment.NewLine}{Environment.NewLine}");
         }
     }
 }

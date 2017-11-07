@@ -2,7 +2,7 @@
 
 namespace HomeWork.Infrastructure.Handler
 {
-    internal interface IHandler
+    public interface IHandler
     {
         void Handle(Exception e);
     }

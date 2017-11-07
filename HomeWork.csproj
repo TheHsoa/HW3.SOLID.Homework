@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ContactRepository.cs" />
     <Compile Include="Data\EntityRepository.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Infrastructure\Logger\FileLogger.cs" />
     <Compile Include="Infrastructure\Handler\IHandler.cs" />
     <Compile Include="Infrastructure\Logger\ILogger.cs" />
+    <Compile Include="Model\Contact\Contact.cs" />
     <Compile Include="Model\Contact\Phone.cs" />
     <Compile Include="Model\Contact\Email.cs" />
     <Compile Include="Model\Contact\IContactEntity.cs" />
@@ -76,11 +78,21 @@
     <Compile Include="Model\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\ContactValidator.cs" />
-    <Compile Include="Validation\IValidator.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\EntityValidators.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

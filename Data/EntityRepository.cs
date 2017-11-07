@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using HomeWork.Infrastructure.Handler;
 using HomeWork.Model;
+using HomeWork.Validation;
 
 namespace HomeWork.Data
 {
-    internal class EntityRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
+    public class EntityRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        private readonly List<TEntity> _storage = new List<TEntity>();
-        private readonly IHandler _exceptionHandler;
+        protected readonly List<TEntity> _storage = new List<TEntity>();
+        protected readonly IHandler _exceptionHandler;
 
         public EntityRepository(IHandler exceptionHandler)
         {
             _exceptionHandler = exceptionHandler;
         }
 
-        public void Add(TEntity contact)
+        public virtual void Add(TEntity entity)
         {
             try
             {
-                _storage.Add(contact);
+                entity.ValidateEntityNotNull();
+                _storage.Add(entity);
             }
             catch (Exception e)
             {
@@ -28,9 +30,9 @@ namespace HomeWork.Data
             }
         }
 
-        public void Remove(TEntity contact)
+        public void Remove(TEntity entity)
         {
-            _storage.Remove(contact);
+            _storage.Remove(entity);
         }
 
         public TEntity GetById(long id)

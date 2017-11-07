@@ -1,8 +1,10 @@
-﻿using HomeWork.Infrastructure.Handler;
+﻿using HomeWork.Data;
+using HomeWork.Infrastructure.Handler;
 using HomeWork.Infrastructure.Logger;
+using HomeWork.Model;
+using HomeWork.Model.Contact;
 
 using Unity;
-using Unity.Injection;
 
 namespace HomeWork.DI
 {
@@ -12,7 +14,10 @@ namespace HomeWork.DI
         {
             var container = new UnityContainer();
             container.RegisterType<ILogger, FileLogger>();
-            container.RegisterType<IHandler, ExceptionHandler>(new InjectionConstructor(new InjectionParameter(container.Resolve<ILogger>())));
+            container.RegisterType<IHandler, ExceptionHandler>();
+            container.RegisterType<IRepository<User>, EntityRepository<User>>();
+            container.RegisterType<IRepository<Contact>, ContactRepository>();
+
             return container;
         }
     }

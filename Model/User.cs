@@ -8,7 +8,7 @@ namespace HomeWork.Model
         public long Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<IContactEntity> Contacts { get; private set; }
+        public ICollection<IContactEntity> Contacts { get; }
 
         public User()
         {
