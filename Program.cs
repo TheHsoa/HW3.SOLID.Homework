@@ -12,7 +12,7 @@ namespace HomeWork
     {
         public static void Main()
         {
-            var container = Bootstrapper.Configure();
+            var container = Bootstrapper.ConfigureUnity();
 
             var user = new User
                            {
