@@ -34,7 +34,7 @@ namespace HomeWork
             var userRepository = container.Resolve<IRepository<User>>();
             userRepository.Add(user);
 
-            var contactRepository = container.Resolve<IRepository<Contact>>();
+            var contactRepository = container.Resolve<IRepository<IContactEntity>>();
 
             contactRepository.Add(email);
             contactRepository.Add(phone);
@@ -42,6 +42,8 @@ namespace HomeWork
             Console.WriteLine(contactRepository.GetById(1));
 
             Console.WriteLine(contactRepository.GetById(2));
+
+            Console.ReadKey();
         }
     }
 }

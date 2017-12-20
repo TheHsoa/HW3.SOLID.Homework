@@ -6,11 +6,11 @@ using HomeWork.Validation;
 
 namespace HomeWork.Data
 {
-    public class ContactRepository : EntityRepository<Contact>
+    public class ContactRepository : EntityRepository<IContactEntity>
     {
         public ContactRepository(IHandler exceptionHandler) : base(exceptionHandler) { }
 
-        public override void Add(Contact contact)
+        public override void Add(IContactEntity contact)
         {
             try
             {

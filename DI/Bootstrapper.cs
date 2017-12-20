@@ -3,9 +3,10 @@ using HomeWork.Infrastructure.Handler;
 using HomeWork.Infrastructure.Logger;
 using HomeWork.Model;
 using HomeWork.Model.Contact;
+using HomeWork.Properties;
 
 using Unity;
-using Unity.Lifetime;
+using Unity.Injection;
 
 namespace HomeWork.DI
 {
@@ -23,17 +24,17 @@ namespace HomeWork.DI
         private static IUnityContainer ConfigureRepository(this IUnityContainer container)
         {
             return container.RegisterType<IRepository<User>, EntityRepository<User>>()
-                            .RegisterType<IRepository<Contact>, ContactRepository>();
+                            .RegisterType<IRepository<IContactEntity>, ContactRepository>();
         }
 
         private static IUnityContainer ConfigureLogger(this IUnityContainer container)
         {
-            return container.RegisterType<ILogger, FileLogger>(new ContainerControlledLifetimeManager());
+            return container.RegisterType<ILogger, FileLogger>(new InjectionConstructor(Resources.LogFilePath));
         }
 
         private static IUnityContainer ConfigureHandler(this IUnityContainer container)
         {
-            return container.RegisterType<IHandler, ExceptionHandler>(new ContainerControlledLifetimeManager());
+            return container.RegisterType<IHandler, ExceptionHandler>();
         }
     }
 }

@@ -1,10 +1,22 @@
-﻿namespace HomeWork.Model.Contact
+﻿using System;
+using System.Diagnostics;
+
+using HomeWork.Properties;
+
+namespace HomeWork.Model.Contact
 {
-    public class Email : Contact
+    [DebuggerDisplay("Id={Id}, Value={Value}")]
+    public class Email : IContactEntity
     {
-        public override string ToString()
+        public long Id { get; set; }
+        public string Value { get; set; }
+
+        public void Validate()
         {
-            return $"Id={Id}, Value={Value}";
+            if (string.IsNullOrWhiteSpace(Value))
+            {
+                throw new ArgumentException(string.Format(Resources.NullPropertyException, nameof(Value)), GetType().Name);
+            }
         }
     }
 }

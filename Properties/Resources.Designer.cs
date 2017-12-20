@@ -61,6 +61,15 @@ namespace HomeWork.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to log.txt.
+        /// </summary>
+        internal static string LogFilePath {
+            get {
+                return ResourceManager.GetString("LogFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The property {0} is null.
         /// </summary>
         internal static string NullPropertyException {

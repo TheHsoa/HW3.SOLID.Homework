@@ -70,7 +70,6 @@
     <Compile Include="Infrastructure\Logger\FileLogger.cs" />
     <Compile Include="Infrastructure\Handler\IHandler.cs" />
     <Compile Include="Infrastructure\Logger\ILogger.cs" />
-    <Compile Include="Model\Contact\Contact.cs" />
     <Compile Include="Model\Contact\Phone.cs" />
     <Compile Include="Model\Contact\Email.cs" />
     <Compile Include="Model\Contact\IContactEntity.cs" />

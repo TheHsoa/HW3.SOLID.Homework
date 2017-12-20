@@ -3,5 +3,7 @@
     public interface IContactEntity : IEntity
     {
         string Value { get; set; }
+
+        void Validate();
     }
 }

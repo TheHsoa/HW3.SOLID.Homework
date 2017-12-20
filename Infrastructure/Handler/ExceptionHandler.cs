@@ -13,7 +13,6 @@ namespace HomeWork.Infrastructure.Handler
             _logger = logger;
         }
 
-        // Не понимаю как можно разбить Handle, чтобы оставить текущее поведение
         public void Handle(Exception e)
         {
             if (e is ArgumentNullException)
