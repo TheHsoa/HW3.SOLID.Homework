@@ -68,7 +68,7 @@
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="Infrastructure\Handler\ExceptionHandler.cs" />
     <Compile Include="Infrastructure\Logger\FileLogger.cs" />
-    <Compile Include="Infrastructure\Handler\IHandler.cs" />
+    <Compile Include="Infrastructure\Handler\IExceptionHandler.cs" />
     <Compile Include="Infrastructure\Logger\ILogger.cs" />
     <Compile Include="Model\Contact\Phone.cs" />
     <Compile Include="Model\Contact\Email.cs" />
