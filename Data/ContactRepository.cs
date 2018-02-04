@@ -8,7 +8,7 @@ namespace HomeWork.Data
 {
     public class ContactRepository : EntityRepository<IContactEntity>
     {
-        public ContactRepository(IHandler exceptionHandler) : base(exceptionHandler) { }
+        public ContactRepository(IExceptionHandler exceptionHandler) : base(exceptionHandler) { }
 
         public override void Add(IContactEntity contact)
         {
@@ -16,11 +16,11 @@ namespace HomeWork.Data
             {
                 contact.ValidateEntityNotNull();
                 contact.Validate();
-                _storage.Add(contact);
+                Storage.Add(contact);
             }
             catch (Exception e)
             {
-                _exceptionHandler.Handle(e);
+                ExceptionHandler.Handle(e);
             }
         }
     }

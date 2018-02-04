@@ -1,7 +1,6 @@
 ﻿using System;
 
 using HomeWork.Properties;
-using HomeWork.Validation;
 
 namespace HomeWork.Model.Contact
 {

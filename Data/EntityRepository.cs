@@ -9,12 +9,12 @@ namespace HomeWork.Data
 {
     public class EntityRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        protected readonly List<TEntity> _storage = new List<TEntity>();
-        protected readonly IHandler _exceptionHandler;
+        protected readonly List<TEntity> Storage = new List<TEntity>();
+        protected readonly IExceptionHandler ExceptionHandler;
 
-        public EntityRepository(IHandler exceptionHandler)
+        public EntityRepository(IExceptionHandler exceptionHandler)
         {
-            _exceptionHandler = exceptionHandler;
+            ExceptionHandler = exceptionHandler;
         }
 
         public virtual void Add(TEntity entity)
@@ -22,35 +22,35 @@ namespace HomeWork.Data
             try
             {
                 entity.ValidateEntityNotNull();
-                _storage.Add(entity);
+                Storage.Add(entity);
             }
             catch (Exception e)
             {
-                _exceptionHandler.Handle(e);
+                ExceptionHandler.Handle(e);
             }
         }
 
         public void Remove(TEntity entity)
         {
-            _storage.Remove(entity);
+            Storage.Remove(entity);
         }
 
         public TEntity GetById(long id)
         {
             try
             {
-                return _storage.First(o => o.Id == id);
+                return Storage.First(o => o.Id == id);
             }
             catch (Exception e)
             {
-                _exceptionHandler.Handle(e);
+                ExceptionHandler.Handle(e);
             }
             return null;
         }
 
         public TEntity[] GetAll()
         {
-            return _storage.ToArray();
+            return Storage.ToArray();
         }
     }
 }

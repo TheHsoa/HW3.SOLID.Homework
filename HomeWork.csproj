@@ -74,6 +74,7 @@
     <Compile Include="Model\Contact\Email.cs" />
     <Compile Include="Model\Contact\IContactEntity.cs" />
     <Compile Include="Model\IEntity.cs" />
+    <Compile Include="Model\IValidatableEntity.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

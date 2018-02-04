@@ -14,7 +14,10 @@ namespace HomeWork.Infrastructure.Logger
 
         public void Log(Exception e)
         {
-            File.AppendAllText(logFilePath, $@"{e.Message}{Environment.NewLine}{Environment.NewLine}");
+            using (TextWriter writer = new StreamWriter(logFilePath))
+            {
+                writer.WriteLine($"{e.Message}{Environment.NewLine}");
+            }
         }
     }
 }

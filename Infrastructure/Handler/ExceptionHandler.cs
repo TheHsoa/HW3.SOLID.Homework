@@ -4,7 +4,7 @@ using HomeWork.Infrastructure.Logger;
 
 namespace HomeWork.Infrastructure.Handler
 {
-    public class ExceptionHandler : IHandler
+    public class ExceptionHandler : IExceptionHandler
     {
         private readonly ILogger _logger;
 

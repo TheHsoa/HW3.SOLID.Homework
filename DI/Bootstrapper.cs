@@ -34,7 +34,7 @@ namespace HomeWork.DI
 
         private static IUnityContainer ConfigureHandler(this IUnityContainer container)
         {
-            return container.RegisterType<IHandler, ExceptionHandler>();
+            return container.RegisterType<IExceptionHandler, ExceptionHandler>();
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿namespace HomeWork.Model.Contact
 {
-    public interface IContactEntity : IEntity
+    public interface IContactEntity : IEntity, IValidatableEntity
     {
         string Value { get; set; }
-
-        void Validate();
     }
 }
