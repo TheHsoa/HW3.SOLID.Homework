@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HomeWork.Model.Contact;
 
 namespace HomeWork.Model
 {
@@ -7,11 +8,11 @@ namespace HomeWork.Model
         public long Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Contact> Contacts { get; private set; }
+        public ICollection<IContactEntity> Contacts { get; }
 
         public User()
         {
-            Contacts = new HashSet<Contact>();
+            Contacts = new HashSet<IContactEntity>();
         }
     }
 }

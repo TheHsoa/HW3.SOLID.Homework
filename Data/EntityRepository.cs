@@ -1,48 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using HomeWork.Infrastructure;
+using HomeWork.Infrastructure.Handler;
 using HomeWork.Model;
+using HomeWork.Validation;
 
 namespace HomeWork.Data
 {
-    internal class EntityRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
+    public class EntityRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        private readonly List<TEntity> _storage = new List<TEntity>();
-        private readonly ExceptionHandler _exceptionHandler = new ExceptionHandler();
-        public void Add(TEntity contact)
+        protected readonly List<TEntity> Storage = new List<TEntity>();
+        protected readonly IExceptionHandler ExceptionHandler;
+
+        public EntityRepository(IExceptionHandler exceptionHandler)
+        {
+            ExceptionHandler = exceptionHandler;
+        }
+
+        public virtual void Add(TEntity entity)
         {
             try
             {
-                _storage.Add(contact);
+                entity.ValidateEntityNotNull();
+                Storage.Add(entity);
             }
             catch (Exception e)
             {
-                _exceptionHandler.Handle(e);
+                ExceptionHandler.Handle(e);
             }
         }
 
-        public void Remove(TEntity contact)
+        public void Remove(TEntity entity)
         {
-            _storage.Remove(contact);
+            Storage.Remove(entity);
         }
 
         public TEntity GetById(long id)
         {
             try
             {
-                return _storage.First(o => o.Id == id);
+                return Storage.First(o => o.Id == id);
             }
             catch (Exception e)
             {
-                _exceptionHandler.Handle(e);
+                ExceptionHandler.Handle(e);
             }
             return null;
         }
 
         public TEntity[] GetAll()
         {
-            return _storage.ToArray();
+            return Storage.ToArray();
         }
     }
 }

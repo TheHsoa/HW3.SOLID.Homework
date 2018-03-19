@@ -1,10 +1,18 @@
 ﻿using System;
-using System.IO;
 
-namespace HomeWork.Infrastructure
+using HomeWork.Infrastructure.Logger;
+
+namespace HomeWork.Infrastructure.Handler
 {
-    public class ExceptionHandler
+    public class ExceptionHandler : IExceptionHandler
     {
+        private readonly ILogger _logger;
+
+        public ExceptionHandler(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public void Handle(Exception e)
         {
             if (e is ArgumentNullException)
@@ -17,13 +25,8 @@ namespace HomeWork.Infrastructure
             }
             else
             {
-                Log(e);
+                _logger.Log(e);
             }
-        }
-
-        private void Log(Exception e)
-        {
-            File.AppendAllText("log.txt", e.Message);
         }
     }
 }

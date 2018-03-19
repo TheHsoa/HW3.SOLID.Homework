@@ -1,40 +1,49 @@
 ﻿using System;
 using HomeWork.Data;
+using HomeWork.DI;
 using HomeWork.Model;
-using HomeWork.Validation;
+using HomeWork.Model.Contact;
+
+using Unity;
 
 namespace HomeWork
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
-            var user = new User { Id = 1, Name = "Name" };
+            var container = Bootstrapper.ConfigureUnity();
 
-            var phone = new Contact { Type = ContactType.Phone, Id = 1, PhoneCode = "123", Value = "123124" };
-            var email = new Contact { Type = ContactType.Email, Id = 2, Value = "mail@2gis.ru" };
+            var user = new User
+                           {
+                               Id = 1,
+                               Name = "Name"
+                           };
 
-            var validator = new ContactValidator();
-
-            var userRepository = GetRepository<User>();
+            var phone = new Phone
+                            {
+                                Id = 1,
+                                PhoneCode = "123",
+                                Value = "123124"
+                            };
+            var email = new Email
+                            {
+                                Id = 2,
+                                Value = "mail@2gis.ru"
+                            };
+            var userRepository = container.Resolve<IRepository<User>>();
             userRepository.Add(user);
 
-            var contactRepository = GetRepository<Contact>();
+            var contactRepository = container.Resolve<IRepository<IContactEntity>>();
 
-            if (validator.IsValid(email))
-                contactRepository.Add(phone);
-
-            if (validator.IsValid(phone))
-                contactRepository.Add(email);
+            contactRepository.Add(email);
+            contactRepository.Add(phone);
 
             Console.WriteLine(contactRepository.GetById(1));
 
             Console.WriteLine(contactRepository.GetById(2));
-        }
 
-        private static IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
-        {
-            return new EntityRepository<TEntity>();
+            Console.ReadKey();
         }
     }
 }
